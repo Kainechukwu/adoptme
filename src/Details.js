@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Component } from "react";
+import Carousel from "./Carousel";
 
 // const Details = () => {
 //   const { id } = useParams();
@@ -10,11 +11,14 @@ import { Component } from "react";
 //anything that starts with use cannot be used in a class component
 
 class Details extends Component {
-  constructor(props) {
-    super(props);
+  //with babel we do not need constructor. We can just access state directly
+  //   constructor(props) {
+  //     super(props);
 
-    this.state = { loading: true };
-  }
+  //     this.state = { loading: true };
+  //   }
+
+  state = { loading: true };
 
   async componentDidMount() {
     const res = await fetch(
@@ -35,7 +39,7 @@ class Details extends Component {
   }
 
   render() {
-    const { name, animal, breed, city, state, description, loading } =
+    const { name, animal, breed, city, state, description, loading, images } =
       this.state;
     if (loading) {
       return <h1>Loading...</h1>;
@@ -43,10 +47,11 @@ class Details extends Component {
 
     return (
       <div className="details">
+        <Carousel images={images} />
         <div>
           <h1>{name}</h1>
           <h2>
-            {animal} - {breed} - {city} - {state}
+            {animal} - {breed} - {city}, {state}
           </h2>
           <button>Adopt {name}</button>
           <p>{description}</p>
