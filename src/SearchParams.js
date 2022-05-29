@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import Pet from "./Pet";
+import useBreedList from "./useBreedList";
+import Results from "./Results";
 
 const SearchParams = () => {
   //   const location = "Seattle, WA";
@@ -7,7 +8,7 @@ const SearchParams = () => {
   const [location, setLocation] = useState("");
   const [animal, setAnimal] = useState("");
   const [breed, setBreed] = useState("");
-  const breeds = ["poodle", "pichon"];
+  const [breeds] = useBreedList(animal);
   const [pets, setPets] = useState([]);
 
   async function requestPets() {
@@ -15,7 +16,7 @@ const SearchParams = () => {
       `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
     );
 
-    const json = res.json();
+    const json = await res.json();
     setPets(json.pets);
   }
   //Hooks are called in the order they were created
@@ -35,7 +36,12 @@ const SearchParams = () => {
   return (
     <div className="search-params">
       {/* //controlled form where react monitors each change */}
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          requestPets();
+        }}
+      >
         <label htmlFor="location">
           Location
           <input
@@ -92,14 +98,7 @@ const SearchParams = () => {
         <button>Submit</button>
       </form>
 
-      {pets.map((pet) => (
-        <Pet
-          key={pet.id}
-          name={pet.name}
-          animel={pet.animal}
-          breed={pet.breed}
-        />
-      ))}
+      <Results pets={pets} />
 
       {/* Uncontrolled form where the input is used only ion submit */}
       {/* <form onSubmit={()}>
