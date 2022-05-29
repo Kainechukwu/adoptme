@@ -11,7 +11,20 @@ const SearchParams = () => {
   const [breed, setBreed] = useState("");
   const [breeds] = useBreedList(animal);
   const [pets, setPets] = useState([]);
-  const [theme] = useContext(ThemeContext);
+  const [theme, setTheme] = useContext(ThemeContext);
+  const themes = [
+    "blue",
+    "black",
+    "red",
+    "peru",
+    "yellow",
+    "brown",
+    "orange",
+    "green",
+    "purple",
+    "chartreuse",
+    "mediumorchid",
+  ];
 
   async function requestPets() {
     const res = await fetch(
@@ -93,6 +106,27 @@ const SearchParams = () => {
             {breeds.map((thisBreed) => (
               <option key={thisBreed} value={thisBreed}>
                 {thisBreed}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label htmlFor="theme">
+          Theme
+          <select
+            id="theme"
+            value={theme}
+            onChange={(e) => {
+              setTheme(e.target.value);
+            }}
+            onBlur={(e) => {
+              setTheme(e.target.value);
+            }}
+          >
+            <option />
+            {themes.map((thisTheme) => (
+              <option key={thisTheme} value={thisTheme}>
+                {thisTheme}
               </option>
             ))}
           </select>
