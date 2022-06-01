@@ -49,9 +49,10 @@ const SearchParams = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="search-params">
+    <div className="my-0 mx-auto w-11/12 ">
       {/* //controlled form where react monitors each change */}
       <form
+        className="p-10 mb-10 rounded-lg bg-gray-300 dark:bg-slate-900 shadow-lg flex flex-col justify-center items-center"
         onSubmit={(e) => {
           e.preventDefault();
           requestPets();
@@ -60,7 +61,14 @@ const SearchParams = () => {
         <label htmlFor="location">
           Location
           <input
+            //dark theme style for input
+            // style={{
+            //   color: "#f8fafc",
+            //   backgroundColor: "#1e2c42",
+            // }}
+            className="w-60 mb-5 block "
             id="location"
+            type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Location"
@@ -70,6 +78,7 @@ const SearchParams = () => {
         <label htmlFor="animal">
           Animal
           <select
+            className="w-60 mb-5 block"
             id="animal"
             value={animal}
             onChange={(e) => {
@@ -93,6 +102,7 @@ const SearchParams = () => {
         <label htmlFor="breed">
           Breed
           <select
+            className="w-60 mb-5 block disabled:opacity-50"
             id="breed"
             value={breed}
             onChange={(e) => {
@@ -114,6 +124,7 @@ const SearchParams = () => {
         <label htmlFor="theme">
           Theme
           <select
+            className="w-60 mb-5 block"
             id="theme"
             value={theme}
             onChange={(e) => {
@@ -131,7 +142,12 @@ const SearchParams = () => {
             ))}
           </select>
         </label>
-        <button style={{ backgroundColor: theme }}>Submit</button>
+        <button
+          className="rounded px-6 py-2 color text-white hover:opacity-50 border-none"
+          style={{ backgroundColor: theme }}
+        >
+          Submit
+        </button>
       </form>
 
       <Results pets={pets} />

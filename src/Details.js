@@ -65,7 +65,7 @@ class Details extends Component {
     // throw new Error("App crashed");
 
     return (
-      <div className="details">
+      <div className="px-6 sm:px-10 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <Carousel images={images} />
         <div>
           <h1>{name}</h1>
@@ -75,6 +75,7 @@ class Details extends Component {
           <ThemeContext.Consumer>
             {([theme]) => (
               <button
+                className="shadow-lg rounded-md bg-gradient-to-tr from-gray-900  to-gray-500 px-2 py-1 text-white"
                 onClick={this.toggleModal}
                 style={{ backgroundColor: theme }}
               >
